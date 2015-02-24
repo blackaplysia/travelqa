@@ -1,10 +1,12 @@
 var debug = require('debug')('travelqa');
 var express = require('express');
+var url = require('url');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
+var https = require('https');
 
 var bmconf = require('./bmconf');
 
@@ -19,7 +21,47 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get('/', function (req, res) {
-  res.render('hello', { title: 'hello', message: 'Hello, World!'} );
+
+    var query = url.parse(bmconf.url + '/v1/question/travel');
+    var options = {
+	host: query.hostname,
+	port: query.port,
+	path: query.pathname,
+	method: 'POST',
+	headers: {
+	    'Content-Type': 'application/json',
+	    'Accept': 'application/json',
+	    'X-synctimeout': '30',
+	    'Authorization': bmconf.auth
+	}
+    };
+
+    var watson_req = https.request(options, function(result) {
+	result.setEncoding('utf-8');
+	var response_string = '';
+	result.on('data', function(chunk) {
+	    response_string += chunk;
+	});
+	result.on('end', function() {
+	    var answers = JSON.parse(response_string)[0];
+	    return res.render('index', {'question': req.body.question, 'answers': answers});
+	});
+    });
+    watson_req.on('error', function(err) {
+	res.status(500);
+	return res.render('error', {status: 500, message: err.message, error: {}});
+    });
+    var questionData = {
+	'question': {
+	    'evidenceRequest': {
+		'items': 10
+	    },
+	    'questionText': req.body.question
+	}
+    };
+
+    watson_req.write(JSON.stringify(questionData));
+    watson_req.end();
 });
 
 // catch 404 and forward to error handler

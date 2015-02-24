@@ -25,3 +25,8 @@ var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toSt
 
 exports.host = process.env.VCAP_APP_HOST || 'localhost';
 exports.port = process.env.VCAP_APP_PORT || 3000;
+
+exports.url = service_url;
+exports.username = service_username;
+exports.password = service_password;
+exports.auth = auth;
