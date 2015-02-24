@@ -6,7 +6,7 @@ var service_password = '{SERVICE_PASSWORD}';
 
 if (process.env.VCAP_SERVICES) {
     var services = JSON.parse(process.env.VCAP_SERVICES);
-    var service_name = 'travelqa';
+    var service_name = 'blackaplysia-travelqa';
     if (services[service_name]) {
 	var svc = services[service_name][0].credentials;
 	service_url = svc.url;
