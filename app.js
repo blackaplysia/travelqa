@@ -22,8 +22,10 @@ app.use(cookieParser());
 
 app.get('/', function (req, res) {
 
-    return res.render('index', {'question': '', 'answers': ''});
-
+    return res.render('index', {
+	'question': '',
+	'answers': {}
+    });
 });
 
 app.post('/', function (req, res) {
@@ -51,13 +53,20 @@ app.post('/', function (req, res) {
 	result.on('end', function() {
 	    console.log(response_string);
 	    var answers = JSON.parse(response_string)[0];
-	    return res.render('index', {'question': req.body.question, 'answers': answers});
+	    return res.render('index', {
+		'question': req.body.question,
+		'answers': answers
+	    });
 	});
     });
     watson_req.on('error', function(err) {
 	console.log('Watson: ' + err);
 	res.status(500);
-	return res.render('error', {status: '500', message: err, error: {}});
+	return res.render('error', {
+	    status: '500',
+	    message: err,
+	    error: {}
+	});
     });
 
     var questionData = {
@@ -86,8 +95,8 @@ if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
+	    status: err.status || 500,
             message: err.message,
-	    status: err.status,
             error: err
         });
     });
@@ -95,8 +104,8 @@ if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error', {
+	    status: err.status || 500,
             message: err.message,
-	    status: err.status,
             error: {}
 	});
     });
