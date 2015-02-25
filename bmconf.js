@@ -1,14 +1,18 @@
 var appInfo = JSON.parse(process.env.VCAP_APPLICATION || '{}');
 
-var service_url = '{SERVICE_URL}';
-var service_username = '{SERVICE_USERNAME}';
-var service_password = '{SERVICE_PASSWORD}';
+var service_url = '{????}';
+var service_username = '{????}';
+var service_password = '{????}';
+var service_instance_name = '{????}';
+var service_instance_plan = '{????}';
 
 if (process.env.VCAP_SERVICES) {
     var services = JSON.parse(process.env.VCAP_SERVICES);
-    var service_name = 'blackaplysia-travelqa';
+    var service_name = 'question_and_answer';
     if (services[service_name]) {
 	var svc = services[service_name][0].credentials;
+	service_instance_name = svc.name;
+	service_instance_plan = svc.plan;
 	service_url = svc.url;
 	service_username = svc.username;
 	service_password = svc.password;
@@ -19,7 +23,7 @@ if (process.env.VCAP_SERVICES) {
     console.log('No VAP_SERVICES found in ENV.');
 }
 
-console.log('Service: ' + service_username + ':XXXX@' + service_url);
+console.log(service_instance_name + '(' + service_instance_plan + '): ' + service_username + ':XXXX@' + service_url);
 
 var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64');
 
