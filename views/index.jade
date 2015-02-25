@@ -3,12 +3,12 @@ html
   head
     title TravelQ&A with Watson
   body
-    h1 ---- Travel Q&A with Watson ----
     if answers && answers.question
       div
         if answers.question.evidencelist && answers.question.evidencelist.length > 0
-          for answer in answers.question.evidencelist
-            p #{answer.text}
+          p #{answers.question.evidencelist[1].text}
+//-          for answer in answers.question.evidencelist
+//-            p #{answer.text}
         else
           p Umm... Sorry, Watson has no answers.
     div
