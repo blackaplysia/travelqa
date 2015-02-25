@@ -3,15 +3,17 @@ html
   head
     title TravelQA by Watson
   body
-    h1 ---- Question ----
-    form(action='/', method="post")
-      p What is your question?
-      input(type='text', name='question')
-      input(type='submit', value='Send')
     if answers && answers.question
+      div
         h1 ---- Answers ----
         if answers.question.evidencelist && answers.question.evidencelist.length > 0
-           for answer in answers.question.evidencelist
-               p #{answer.text} (Rate= #{answer.value})
-           else
-               p Watson has no answers
+          for answer in answers.question.evidencelist
+            p #{answer.text}
+        else
+          p Umm... Sorry, Watson has no answers.
+    div
+      h1 ---- Question ----
+      form(action='/', method="post")
+        p Any question?
+        input(type='text', name='question')
+        input(type='submit', value='Send')
