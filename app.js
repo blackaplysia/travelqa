@@ -72,7 +72,7 @@ app.post('/', function (req, res) {
     var questionData = {
 	'question': {
 	    'evidenceRequest': {
-		'items': 10
+		'items': 1
 	    },
 	    'questionText': req.body.question
 	}
