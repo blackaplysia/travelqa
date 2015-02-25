@@ -1,18 +1,17 @@
 doctype html
 html
   head
-    title TravelQA by Watson
+    title TravelQ&A with Watson
   body
+    h1 ---- Travel Q&A with Watson ----
     if answers && answers.question
       div
-        h1 ---- Answers ----
         if answers.question.evidencelist && answers.question.evidencelist.length > 0
           for answer in answers.question.evidencelist
             p #{answer.text}
         else
           p Umm... Sorry, Watson has no answers.
     div
-      h1 ---- Question ----
       form(action='/', method="post")
         p Any question?
         input(type='text', name='question')
