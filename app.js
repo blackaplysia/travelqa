@@ -41,8 +41,6 @@ app.post('/', function (req, res) {
 	    'Authorization': bmconf.auth
 	}
     };
-    console.log(query);
-    console.log(JSON.stringify(options));
 
     var watson_req = https.request(options, function(result) {
 	result.setEncoding('utf-8');
@@ -51,6 +49,7 @@ app.post('/', function (req, res) {
 	    response_string += chunk;
 	});
 	result.on('end', function() {
+	    console.log(response_string);
 	    var answers = JSON.parse(response_string)[0];
 	    return res.render('index', {'question': req.body.question, 'answers': answers});
 	});

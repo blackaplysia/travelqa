@@ -8,5 +8,10 @@ html
       p What is your question?
       input(type='text', name='question')
       input(type='submit', value='Send')
-    h1 ---- Answers ----
-    p= answers
+    if answers && answers.question
+        h1 ---- Answers ----
+	   if answers.question.evidencelist && answers.question.evidencelist.length > 0
+	       for answer in answers.question.evidencelist
+                   p= #{answer.text} (Rate= #{answer.value})
+           else
+               p Watson has no answers

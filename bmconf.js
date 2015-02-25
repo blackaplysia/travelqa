@@ -3,16 +3,14 @@ var appInfo = JSON.parse(process.env.VCAP_APPLICATION || '{}');
 var service_url = '{????}';
 var service_username = '{????}';
 var service_password = '{????}';
-var service_instance_name = '{????}';
-var service_instance_plan = '{????}';
 
 if (process.env.VCAP_SERVICES) {
     var services = JSON.parse(process.env.VCAP_SERVICES);
     var service_name = 'question_and_answer';
     if (services[service_name]) {
+	var service_instance_name = services[service_name][0].name;
+	var service_instance_plan = services[service_name][0].plan;
 	var svc = services[service_name][0].credentials;
-	service_instance_name = svc.name;
-	service_instance_plan = svc.plan;
 	service_url = svc.url;
 	service_username = svc.username;
 	service_password = svc.password;
