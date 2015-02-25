@@ -9,8 +9,10 @@ html
           p #{answers.question.evidencelist[1].text}
         else
           p Umm... Sorry, Watson has no answers.
+      p Any more question?
+    else
+      p Any question?
     div
       form(action='/', method="post")
-        p Any question?
         input(type='text', name='question')
         input(type='submit', value='Send')
