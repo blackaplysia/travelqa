@@ -22,6 +22,12 @@ app.use(cookieParser());
 
 app.get('/', function (req, res) {
 
+    return res.render('index', {'question': '', 'answers': ''});
+
+});
+
+app.post('/', function (req, res) {
+
     var query = url.parse(bmconf.url + '/v1/question/travel');
     var options = {
 	host: query.hostname,
@@ -51,6 +57,7 @@ app.get('/', function (req, res) {
 	res.status(500);
 	return res.render('error', {status: 500, message: err.message, error: {}});
     });
+
     var questionData = {
 	'question': {
 	    'evidenceRequest': {

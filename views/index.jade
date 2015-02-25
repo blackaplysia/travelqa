@@ -5,8 +5,8 @@ html
   body
     h1 ---- Question ----
     form(action='/', method="post")
-    input(type='label', value='Question')
-    input#question(type='text')
-    input(type='submit', value='Send')
+      p What is your question?
+      input#question(type='text')
+      input(type='submit', value='Send')
     h1 ---- Answers ----
     p= answers
