@@ -54,8 +54,9 @@ app.post('/', function (req, res) {
 	});
     });
     watson_req.on('error', function(err) {
+	console.log('Watson: ' + err);
 	res.status(500);
-	return res.render('error', {status: 500, message: err.message, error: {}});
+	return res.render('error', {status: '500', message: err, error: {}});
     });
 
     var questionData = {

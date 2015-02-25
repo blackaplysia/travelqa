@@ -6,7 +6,7 @@ html
     h1 ---- Question ----
     form(action='/', method="post")
       p What is your question?
-      input#question(type='text')
+      input(type='text', name='question')
       input(type='submit', value='Send')
     h1 ---- Answers ----
     p= answers

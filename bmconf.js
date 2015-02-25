@@ -19,7 +19,7 @@ if (process.env.VCAP_SERVICES) {
     console.log('No VAP_SERVICES found in ENV.');
 }
 
-console.log('Service: ' + service_username + ':' + new Array(service_password.length).join("X") + '@' + service_url);
+console.log('Service: ' + service_username + ':XXXX@' + service_url);
 
 var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64');
 
