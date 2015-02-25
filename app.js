@@ -41,6 +41,8 @@ app.post('/', function (req, res) {
 	    'Authorization': bmconf.auth
 	}
     };
+    console.log(query);
+    console.log(JSON.stringify(options));
 
     var watson_req = https.request(options, function(result) {
 	result.setEncoding('utf-8');
